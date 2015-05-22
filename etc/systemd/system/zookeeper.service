@@ -9,8 +9,16 @@ RestartSec=20
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill zookeeper
 ExecStartPre=-/usr/bin/docker rm zookeeper
-ExecStartPre=/usr/bin/docker pull jplock/zookeeper
-ExecStart=/usr/bin/docker run --net=host --name=zookeeper jplock/zookeeper
+ExecStartPre=/usr/bin/docker pull tobilg/zookeeper:latest
+ExecStart=/usr/bin/sh -c "/usr/bin/docker run \
+  --net=host \
+  --name=zookeeper \
+  -e ZOOKEEPER_HOSTS=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}'):2888:3888 \
+  -e LOCAL_ZK_IP=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}') \
+  -p 2181:2181 \
+  -p 2888:2888 \
+  -p 3888:3888 \
+  tobilg/zookeeper:latest"
 ExecStop=/usr/bin/docker stop zookeeper
 
 [Install]
