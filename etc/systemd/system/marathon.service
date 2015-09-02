@@ -19,7 +19,7 @@ ExecStart=/usr/bin/sh -c "/usr/bin/docker run \
     --master zk://$(ifconfig eth0 | grep 'inet ' | awk '{print $2}'):2181/mesos \
     --zk zk://$(ifconfig eth0 | grep 'inet ' | awk '{print $2}'):2181/marathon \
     --checkpoint \
-    --task_launch_timeout 300000"
+	--hostname $(/usr/bin/hostname)"
 ExecStop=/usr/bin/docker stop marathon
 
 [Install]
