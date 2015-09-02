@@ -8,9 +8,11 @@ There were some tweaks applied, such as the automatic determination of the IP ad
 It installs the following infrastucture:
 
 1. Zookeeper (3.4.6)
-2. Mesos Master (0.22.1)
-3. Mesos Slave (0.22.1)
-4. Marathon (0.8.2)
+2. Mesos Master (0.24.0-rc1)
+3. Mesos Slave (0.24.0-rc1)
+4. Marathon (0.10.1)
+
+as of 2015-09-02.
 
 ## Installation
 
