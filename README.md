@@ -11,8 +11,9 @@ It installs the following infrastucture:
 2. Mesos Master (0.24.0-rc1)
 3. Mesos Slave (0.24.0-rc1)
 4. Marathon (0.10.1)
+5. Chronos (2.4.0)
 
-as of 2015-09-02.
+as of 2015-09-03.
 
 ## Installation
 
@@ -39,11 +40,13 @@ where `<<interface name>>` is the name of the correct interface (such as `ens192
     sudo systemctl enable zookeeper.service \
         mesos-master.service \
         mesos-slave.service \
-        marathon.service
+        marathon.service \
+		chronos.service
 		
 ### Start the `systemd` services
 
     sudo systemctl start zookeeper.service \
         mesos-master.service \
         mesos-slave.service \
-        marathon.service
+        marathon.service \
+		chronos.service

@@ -1,0 +1,24 @@
+[Unit]
+Description=Chronos
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=on-failure
+RestartSec=20
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill chronos
+ExecStartPre=-/usr/bin/docker rm chronos
+ExecStartPre=/usr/bin/docker pull tobilg/chronos:latest
+ExecStart=/usr/bin/sh -c "/usr/bin/docker run \
+    --name chronos \
+    -v /etc/localtime:/etc/localtime:ro \
+    -e CHRONOS_HOSTNAME=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}') \
+    -e CHRONOS_MESOS_MASTER=zk://$(ifconfig eth0 | grep 'inet ' | awk '{print $2}'):2181/mesos \
+    -e CHRONOS_ZK_HOSTS=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}'):2181 \
+	-p 8081:8080 \
+    tobilg/chronos:latest"
+ExecStop=/usr/bin/docker stop chronos
+
+[Install]
+WantedBy=multi-user.target
