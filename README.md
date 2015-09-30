@@ -32,14 +32,22 @@ Give execution permissions to the scripts:
 To configure and install the services for a single node, run 
 
     sudo coreos-setup/setup_mesos_environment.sh <public network interface name>
-	
+
 where `<public network interface name>` is `eth1` for example.
 
 If you want to run on multiple nodes with each one having an own Zookeeper instance, use
 
     sudo coreos-setup/setup_mesos_environment.sh <public network interface name> <comma separated list of IP addresses>
-	
+
 where `<public network interface name>` is `eth1` for example, and `<comma separated list of IP addresses>` is `192.168.0.1,192.168.0.2,192.168.0.3`
+
+### Pull images
+
+To avoid a long delay upon the first startup, pull the relevant Docker images before via
+
+    sudo coreos-setup/pull_images.sh
+
+Depending on your internet connection this can take a while...
 
 ### Start services
 
