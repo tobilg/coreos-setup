@@ -16,11 +16,6 @@ else
   CWD=$(pwd)
 fi
 
-# Cleanup temporary folder
-#if [ -d "${CWD}/coreos-setup" ]; then
-#  rm -rf -- $CWD/coreos-setup
-#fi
-
 # Check for additional hosts parameter
 if [ -z ${2+x} ]; then
   # Produce correct env variables for single node
