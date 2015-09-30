@@ -59,7 +59,7 @@ echo "Mesos Zookeeper URL: ${MESOS_ZK}"
 echo "Mesos Quorum: ${MESOS_QUORUM}"
 
 # Set WORK_DIR
-WORK_DIR=$CWD/etc/systemd/system
+WORK_DIR=$CWD/coreos-setup/etc/systemd/system
 
 # Replace network interface name
 sed -i -e "s/eth0/${INTERFACE_NAME}/" $WORK_DIR/*.service 
