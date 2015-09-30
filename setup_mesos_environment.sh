@@ -42,7 +42,7 @@ else
   MESOS_ZK="${BASE_ZK}\/mesos"
   MARATHON_ZK="${BASE_ZK}\/marathon"
   ZOOKEEPER_HOSTS="${ZK_HOST_STRINGS[*]}"
-  MESOS_QUORUM=$((($HOST_COUNT / 2) + ($HOST_COUNT % 2 > 0)))
+  MESOS_QUORUM=$((($HOST_COUNT / 2) + 1))
 fi
 
 # Debug info
