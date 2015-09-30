@@ -16,10 +16,10 @@ ExecStart=/usr/bin/sh -c "/usr/bin/docker run \
     -p 8080:8080 \
     -p 9090:9090 \
     mesosphere/marathon:latest \
-    --master zk://$(ifconfig eth0 | grep 'inet ' | awk '{print $2}'):2181/mesos \
-    --zk zk://$(ifconfig eth0 | grep 'inet ' | awk '{print $2}'):2181/marathon \
+    --master %%MESOS_ZK%% \
+    --zk %%MARATHON_ZK%% \
     --checkpoint \
-	--hostname $(/usr/bin/hostname)"
+    --hostname $(/usr/bin/hostname)"
 ExecStop=/usr/bin/docker stop marathon
 
 [Install]

@@ -13,8 +13,8 @@ ExecStartPre=/usr/bin/docker pull tobilg/zookeeper:latest
 ExecStart=/usr/bin/sh -c "/usr/bin/docker run \
   --net=host \
   --name=zookeeper \
-  -e ZOOKEEPER_HOSTS=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}'):2888:3888 \
-  -e LOCAL_ZK_IP=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}') \
+  -e ZOOKEEPER_HOSTS=%%ZOOKEEPER_HOSTS%% \
+  -e LOCAL_ZK_IP=%%LOCAL_IP%% \
   -p 2181:2181 \
   -p 2888:2888 \
   -p 3888:3888 \

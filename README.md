@@ -8,8 +8,8 @@ There were some tweaks applied, such as the automatic determination of the IP ad
 It installs the following infrastucture:
 
 1. Zookeeper (3.4.6)
-2. Mesos Master (0.24.0-rc1)
-3. Mesos Slave (0.24.0-rc1)
+2. Mesos Master (0.24.1)
+3. Mesos Slave (0.24.1)
 4. Marathon (0.10.1)
 5. Chronos (2.4.0)
 
@@ -23,30 +23,30 @@ Please take the following steps to install the unit files on your CoreOS instanc
 
     git clone https://github.com/tobilg/coreos-setup.git
 
-### Copy the unit files
+### Run setup script
 
-    sudo cp coreos-setup/etc/systemd/system/*.service /etc/systemd/system
+Give execution permissions to the scripts:
 
-#### Hint
+    sudo chmod +x coreos-setup/*.sh
 
-If you're using another public-facing network interface than `eth0`, please run
+To configure and install the services for a single node, run 
 
-    sudo sed -i 's/eth0/<<interface name>>/g' /etc/systemd/system/*.service 
+    sudo coreos-setup/setup_mesos_environment.sh <public network interface name>
 	
-where `<<interface name>>` is the name of the correct interface (such as `ens192` for example if you run CoreOS on VMware ESXi).	
+where `<public network interface name>` is `eth1` for example.
 
-### Enable the `systemd` services
+If you want to run on multiple nodes with each one having an own Zookeeper instance, use
 
-    sudo systemctl enable zookeeper.service \
-        mesos-master.service \
-        mesos-slave.service \
-        marathon.service \
-		chronos.service
-		
-### Start the `systemd` services
+    sudo coreos-setup/setup_mesos_environment.sh <public network interface name> <comma separated list of IP addresses>
+	
+where `<public network interface name>` is `eth1` for example, and `<comma separated list of IP addresses>` is `192.168.0.1,192.168.0.2,192.168.0.3`
 
-    sudo systemctl start zookeeper.service \
-        mesos-master.service \
-        mesos-slave.service \
-        marathon.service \
-		chronos.service
+### Start services
+
+On a local node installation, run
+
+    sudo coreos-setup/start_local_mesos.sh
+	
+This will start all services. For a cluster installation, it is advisable to start the Zookeeper services with `sudo systemctl start zookeeper.service` on each node first, and once this is done, start the other services via
+
+    sudo coreos-setup/start_cluster_mesos.sh

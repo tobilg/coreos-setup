@@ -13,10 +13,10 @@ ExecStartPre=/usr/bin/docker pull tobilg/chronos:latest
 ExecStart=/usr/bin/sh -c "/usr/bin/docker run \
     --name chronos \
     -v /etc/localtime:/etc/localtime:ro \
-    -e CHRONOS_HOSTNAME=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}') \
-    -e CHRONOS_MESOS_MASTER=zk://$(ifconfig eth0 | grep 'inet ' | awk '{print $2}'):2181/mesos \
-    -e CHRONOS_ZK_HOSTS=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}'):2181 \
-	-p 8081:8080 \
+    -e CHRONOS_HOSTNAME=%%LOCAL_IP%% \
+    -e CHRONOS_MESOS_MASTER=%%MESOS_ZK%% \
+    -e CHRONOS_ZK_HOSTS=%%BASE_ZK%% \
+    -p 8081:8081 \
     tobilg/chronos:latest"
 ExecStop=/usr/bin/docker stop chronos
 

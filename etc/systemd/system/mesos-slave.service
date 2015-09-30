@@ -18,10 +18,11 @@ ExecStart=/usr/bin/sh -c "/usr/bin/docker run \
     -v /usr/bin/docker:/usr/bin/docker:ro \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /lib64/libdevmapper.so.1.02:/lib/libdevmapper.so.1.02:ro \
-    -e MESOS_IP=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}') \
-    -e MESOS_HOSTNAME=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}') \
+    -p 5051:5051 \
+    -e MESOS_IP=%%LOCAL_IP%% \
+    -e MESOS_HOSTNAME=%%LOCAL_IP%% \
     -e MESOS_CONTAINERIZERS=docker,mesos \
-    -e MESOS_MASTER=zk://$(ifconfig eth0 | grep 'inet ' | awk '{print $2}'):2181/mesos \
+    -e MESOS_MASTER=%%MESOS_ZK%% \
     -e MESOS_LOG_DIR=/var/log/mesos/slave \
     -e MESOS_WORK_DIR=/var/lib/mesos/slave \
     -e MESOS_EXECUTOR_REGISTRATION_TIMEOUT=5mins \
