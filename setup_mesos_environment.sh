@@ -20,7 +20,7 @@ fi
 if [ -z ${2+x} ]; then
   # Produce correct env variables for single node
   echo "Single node setup for IP ${LOCAL_IP}"
-  BASE_ZK="zk:\/\/${LOCAL_IP}"
+  BASE_ZK="zk:\/\/${LOCAL_IP}:2181"
   MESOS_ZK="${BASE_ZK}\/mesos"
   MARATHON_ZK="${BASE_ZK}\/marathon"
   ZOOKEEPER_HOSTS="${LOCAL_IP}"
