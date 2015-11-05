@@ -13,7 +13,7 @@ It installs the following infrastucture:
 4. Marathon (0.13.0-RC1)
 5. Chronos (2.4.0)
 
-as of 2015-09-03.
+as of 2015-11-05.
 
 ## Installation
 
