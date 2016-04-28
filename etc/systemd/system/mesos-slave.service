@@ -9,7 +9,7 @@ RestartSec=20
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill mesos_slave
 ExecStartPre=-/usr/bin/docker rm mesos_slave
-ExecStartPre=/usr/bin/docker pull tobilg/mesos-slave:latest
+ExecStartPre=/usr/bin/docker pull mesosphere/mesos-slave:0.28.1
 ExecStart=/usr/bin/sh -c "/usr/bin/docker run \
     --name=mesos_slave \
     --net=host \
@@ -18,6 +18,8 @@ ExecStart=/usr/bin/sh -c "/usr/bin/docker run \
     -v /usr/bin/docker:/usr/bin/docker:ro \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /lib64/libdevmapper.so.1.02:/lib/libdevmapper.so.1.02:ro \
+    -v /lib64/libsystemd.so.0:/lib/libsystemd.so.0:ro \
+    -v /lib64/libgcrypt.so.20:/lib/libgcrypt.so.20:ro \
     -p 5051:5051 \
     -e MESOS_IP=%%LOCAL_IP%% \
     -e MESOS_HOSTNAME=%%LOCAL_IP%% \
@@ -26,7 +28,7 @@ ExecStart=/usr/bin/sh -c "/usr/bin/docker run \
     -e MESOS_LOG_DIR=/var/log/mesos/slave \
     -e MESOS_WORK_DIR=/var/lib/mesos/slave \
     -e MESOS_EXECUTOR_REGISTRATION_TIMEOUT=5mins \
-    tobilg/mesos-slave:latest"
+    mesosphere/mesos-slave:0.28.1"
 ExecStop=/usr/bin/docker stop mesos_slave
 
 [Install]
